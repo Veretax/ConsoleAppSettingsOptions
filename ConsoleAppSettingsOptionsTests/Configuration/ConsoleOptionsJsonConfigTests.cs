@@ -12,6 +12,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
     [TestFixture]
     public class ConsoleOptionsJsonConfigTests
     {
+        #region IsEmptyJsonFile Tests
         [Test]
         public void IsEmptyJsonFile_EmptyJsonConfigFile_ReturnsFalse()
         {
@@ -58,28 +59,26 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
                 .WithMessage(exceptionMsg);
 
         }
+        #endregion IsEmptyJsonFile Tests
 
+        #region LoadJsonConfigTests
         [Test]
-        public void LoadJsonConfig_EmptyJsonConfigFile_ReturnsFalse()
+        public void LoadJsonConfig_EmptyJsonConfigFile_ReturnsNoChildren()
         {
             // Arrange
-            // ~\emptyjsonfile.json
-            string settingsFileName = "onekeyjsonfile.json";
+            string settingsFileName = "emptyjsonfile.json";
 
             // Act
-            var result = ConsoleOptionsJsonConfig.IsEmptyJsonFile(settingsFileName);
-            //var result = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
+            var result = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
 
             // Assert
-            result.Should().BeFalse();
-            //result.GetChildren().Count().Should().Be(0);
+            result.GetChildren().Count().Should().Be(0);
         }
 
         [Test]
-        public void LoadJsonConfig_OneKeyJsonConfigFile_ReturnsFalse()
+        public void LoadJsonConfig_OneKeyJsonConfigFile_ReturnsOneChild()
         {
             // Arrange
-            // ~\emptyjsonfile.json
             string settingsFileName = "onekeyjsonfile.json";
 
             // Act
@@ -87,14 +86,15 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
                 settingsFileName);
 
             // Assert
-            result.GetChildren().Count().Should().Be(0);
+            result.GetChildren().Count().Should().Be(1);
+            bool value = result.GetValue<bool>(DefaultApplicationOptions.DefaultOneKey);
+            value.Should().BeTrue();
         }
 
         [Test]
-        public void LoadJsonConfig_MissingFile_ExpectedBehavior()
+        public void LoadJsonConfig_MissingFile_ThrowsFileNotFoundException()
         {
             // Arrange
-            // ~\emptyjsonfile.json
             string settingsFileName = "missingjsonfile.json";
             string exceptionMsg = FileNotFoundExceptionMessage.GetFileNotFoundExceptionMessage(settingsFileName);
             // Act
@@ -108,23 +108,6 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
             action.Should().Throw<FileNotFoundException>()
                 .WithMessage(exceptionMsg);
         }
-
-        [Test]
-        public void LoadJsonConfig_OneKeyJsonConfigFile_ReturnsOnlyOneChild()
-        {
-            // Arrange
-            // ~\emptyjsonfile.json
-            string settingsFileName = "onekeyjsonfile.json";
-
-            // Act
-            var result = ConsoleOptionsJsonConfig.LoadJsonConfig(
-                settingsFileName);
-
-            // Assert
-            result.GetChildren().Count().Should().Be(1);
-            //bool value = result.GetSection(DefaultApplicationOptions.DefaultOneKey).GetValue<bool>();
-            bool value = result.GetValue<bool>(DefaultApplicationOptions.DefaultOneKey);
-            value.Should().BeTrue();
-        }
+        #endregion LoadJsonConfigTests
     }
 }
