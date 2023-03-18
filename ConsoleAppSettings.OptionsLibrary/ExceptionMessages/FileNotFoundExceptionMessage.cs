@@ -1,4 +1,4 @@
-﻿namespace ConsoleAppSettingsOptions.Library.Exceptions;
+﻿namespace ConsoleAppSettingsOptions.Library.ExceptionMessages;
 
 public class FileNotFoundExceptionMessage
 {

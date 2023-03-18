@@ -1,12 +1,19 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Text.Json;
-using ConsoleAppSettingsOptions.Library.Exceptions;
+using ConsoleAppSettingsOptions.Library.ExceptionMessages;
 
 namespace ConsoleAppSettings.OptionsLibrary.Configuration;
 
 public class ConsoleOptionsJsonConfig
 {
+    /// <summary>
+    /// Takes a JsonConfig filepath, verifies it is there and not empty,
+    /// and then returns the ConfigurationRoot.
+    /// </summary>
+    /// <param name="filePath">the path to the file</param>
+    /// <returns></returns>
+    /// <exception cref="FileNotFoundException">if the file path is not found it will throw this exception.</exception>
     public static IConfigurationRoot? LoadJsonConfig(string filePath)
     {
         if (File.Exists(filePath))
@@ -30,8 +37,12 @@ public class ConsoleOptionsJsonConfig
         
     }
 
-    
-
+    /// <summary>
+    /// Checks for the existence of an Empty JsonFile 
+    /// </summary>
+    /// <param name="filePath">the path to the file</param>
+    /// <returns>returns true if it has no elements, if it is not an empty file, and has elements then it returns false</returns>
+    /// <exception cref="FileNotFoundException">if the file path is not found it will throw this exception.</exception>
     public static bool IsEmptyJsonFile(string filePath)
     {
         // Check if the file exists

@@ -22,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="onekeyjsonfile.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="emptyjsonfile.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

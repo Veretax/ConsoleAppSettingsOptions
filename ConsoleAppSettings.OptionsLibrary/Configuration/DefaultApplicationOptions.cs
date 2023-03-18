@@ -9,7 +9,7 @@ public static class DefaultApplicationOptions
     private static readonly string _defaultMicrosoftAspNetCoreLoggingLevel = "Warning";
     private static readonly string _defaultLoggingLevel = "Information";
     private static readonly string _defaultAllowHosts = "*";
-
+    private static readonly string _defaultOneKey = "OneKey";
     public static string DefaultAgincourtApplicationName => _defaultAgincourtApplicationName;
 
     public static string DefaultApplicationVersion => _defaultApplicationVersion;
@@ -23,4 +23,6 @@ public static class DefaultApplicationOptions
     public static string DefaultLoggingLevel => _defaultLoggingLevel;
 
     public static string DefaultAllowHosts => _defaultAllowHosts;
+
+    public static string DefaultOneKey => _defaultOneKey;
 }
