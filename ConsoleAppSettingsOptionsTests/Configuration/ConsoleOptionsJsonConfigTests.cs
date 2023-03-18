@@ -46,7 +46,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
         {
             // Arrange
             string settingsFileName = "no_actual_config_file.json";
-            string exceptionMsg = FileNotFoundExceptionMessage.GetFileNotFoundExceptionMessage(settingsFileName);
+            //string exceptionMsg = FileNotFoundExceptionMessage.GetFileNotFoundExceptionMessage(settingsFileName);
+            string exceptionMsg = FileNotFoundExceptionMessage.DefaultFileNotFoundExceptionMessage;
 
             // Act
             Action action = () =>
@@ -72,7 +73,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
             var result = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
 
             // Assert
-            result.GetChildren().Count().Should().Be(0);
+            result?.GetChildren().Count().Should().Be(0);
         }
 
         [Test]

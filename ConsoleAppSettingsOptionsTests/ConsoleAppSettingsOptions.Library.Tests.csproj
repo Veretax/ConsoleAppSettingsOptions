@@ -22,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="allowhostsonly.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="onekeyjsonfile.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
