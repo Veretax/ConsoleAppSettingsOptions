@@ -66,7 +66,6 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
         public void LoadJsonConfig_EmptyJsonConfigFile_ReturnsNoChildren()
         {
             // Arrange
-            // ~\emptyjsonfile.json
             string settingsFileName = "emptyjsonfile.json";
 
             // Act
@@ -98,6 +97,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
             // Arrange
             string settingsFileName = "missingjsonfile.json";
             string exceptionMsg = FileNotFoundExceptionMessage.GetFileNotFoundExceptionMessage(settingsFileName);
+            
             // Act
             Action action = () =>
             {
