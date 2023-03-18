@@ -66,6 +66,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
         public void LoadJsonConfig_EmptyJsonConfigFile_ReturnsNoChildren()
         {
             // Arrange
+            // ~\emptyjsonfile.json
             string settingsFileName = "emptyjsonfile.json";
 
             // Act
