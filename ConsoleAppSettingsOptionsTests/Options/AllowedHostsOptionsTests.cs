@@ -16,7 +16,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             // Arrange
             string expected = "localhost";
             var allowedHostsOptions = new AllowedHostsOptions();
-            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig("appsettings.json");
+            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig("allowhostsonly.json");
 
             // Act
             var result = allowedHostsOptions.GetSection(config).Get<AllowedHostsOptions>();
