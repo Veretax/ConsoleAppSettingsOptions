@@ -13,8 +13,8 @@ public class AllowedHostsOptions
     /// <summary>
     /// Gets the Configuration Section for the AllowedHostsName
     /// </summary>
-    /// <param name="config"></param>
-    /// <returns></returns>
+    /// <param name="config">The configuration option</param>
+    /// <returns>the configuration after processing the section</returns>
     public IConfiguration GetSection(IConfiguration config)
     {
         AllowedHostsOptions options = new();

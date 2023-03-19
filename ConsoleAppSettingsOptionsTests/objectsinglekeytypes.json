@@ -1,0 +1,7 @@
+{
+  "Int32": -2147483648,
+  "Int16": -32768,
+  "String": "mystring",
+  "BoolTrue": true,
+  "BoolFalse":  false 
+}
