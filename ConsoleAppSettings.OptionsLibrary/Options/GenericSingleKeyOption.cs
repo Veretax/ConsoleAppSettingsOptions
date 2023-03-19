@@ -5,12 +5,9 @@ namespace ConsoleAppSettingsOptions.Library.Options;
 
 public class GenericSingleKeyOption<T>
 {
-    public string OptionName = "GenericOptionName";
     private string _key;
     private T _value;
-
-    public T OptionValue { get; set; }
-
+    
     public string Key => _key;
 
     public T Value
@@ -21,12 +18,12 @@ public class GenericSingleKeyOption<T>
 
     public GenericSingleKeyOption(string singleKeyName)
     {
-        OptionName = singleKeyName;
         _key = singleKeyName;
     }
 
     public IConfigurationSection GetSection(IConfiguration config, T defaultValue)
     {
+        GenericSingleKeyOption<T> options = new GenericSingleKeyOption<T>(this.Key);
         IConfigurationSection section = config.GetSection(Key);
         if (section.Exists())
         {
@@ -34,7 +31,10 @@ public class GenericSingleKeyOption<T>
         }
         else
         {
-            Value = defaultValue;
+            options.Value = defaultValue;
+            this.Value = defaultValue;
+            section.Value = defaultValue.ToString();
+            section.Bind(this.Key,this.Value);
         }
         return section;
     }

@@ -11,7 +11,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
     public class TwoNestedValueOptionsTests
     {
         [Test]
-        public void GetSection_StateUnderTest_ExpectedBehavior()
+        public void GetSection_StringValue_ExpectedBehavior()
         {
             // Arrange
             string expectedStringKey1 = "StringValue1";
@@ -19,12 +19,12 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Configuration
             var options = new TwoNestedValueOptions();
             IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig("twonestedvalueonly.json");
 
-            //// Act
-            //var result = options.GetSection(config).Get<TwoNestedValueOptions>();
-
-            //// Assert
-            //result.StringKey1.Should().Be(expectedStringKey1);
-            //result.IntKey2.Should().Be(expectedIntKey2);
+            // Act
+            var result = options.GetSection(config).Get<TwoNestedValueOptions>();
+            
+            // Assert
+            result.StringKey1.Should().Be(expectedStringKey1);
+            result.IntKey2.Should().Be(expectedIntKey2);
         }
     }
 }

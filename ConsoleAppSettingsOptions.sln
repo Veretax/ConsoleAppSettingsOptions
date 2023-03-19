@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppSettingsOptions", "ConsoleAppSettingsOptions\ConsoleAppSettingsOptions.csproj", "{BF105334-0578-4821-A16D-EC3886DFCA14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppSettingsOptions", "ConsoleAppSettingsOptions\ConsoleAppSettingsOptions.csproj", "{BF105334-0578-4821-A16D-EC3886DFCA14}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppSettingsOptions.Library.Tests", "ConsoleAppSettingsOptionsTests\ConsoleAppSettingsOptions.Library.Tests.csproj", "{BAA8C171-F3F6-4013-9F2C-F132CA13579D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppSettingsOptions.Library", "ConsoleAppSettings.OptionsLibrary\ConsoleAppSettingsOptions.Library.csproj", "{D5D2408C-F983-4BB2-A647-CC833F7274CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppSettingsOptions.Library", "ConsoleAppSettings.OptionsLibrary\ConsoleAppSettingsOptions.Library.csproj", "{D5D2408C-F983-4BB2-A647-CC833F7274CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

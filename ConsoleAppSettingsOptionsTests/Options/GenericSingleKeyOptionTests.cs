@@ -11,6 +11,49 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
     public class GenericSingleKeyOptionTests
     {
         [Test]
+        public void GetSection_SectionNotPresent_ReturnsDefaultValue()
+        {
+            // Arrange
+            var singleKeyName = "String";
+            var genericSingleKeyOption = new GenericSingleKeyOption<string>(singleKeyName);
+            var expected = "mystring";
+            string stringDefault = string.Empty;
+            var secondExpected = "NewString";
+            ;
+
+            string settingsFileName = "twonestedvalueonly.json";
+            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
+
+            // Act
+            var result = genericSingleKeyOption.GetSection(config, stringDefault);
+
+            // Assert
+            result.Value.Should().BeEquivalentTo(stringDefault);
+            result.Key.Should().BeEquivalentTo(singleKeyName);
+        }
+
+        //[Test]
+        //public void GetSection_SectionNotPresentThenGetValue_ReturnsDefaultValue()
+        //{
+        //    // Arrange
+        //    var singleKeyName = "String";
+        //    var genericSingleKeyOption = new GenericSingleKeyOption<string>(singleKeyName);
+        //    var expected = "mystring";
+        //    string stringDefault = string.Empty;
+        //    var secondExpected = "NewString";
+        //    ;
+
+        //    string settingsFileName = "twonestedvalueonly.json";
+        //    IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
+
+        //    // Act
+        //    var result = genericSingleKeyOption.GetSection(config, stringDefault).GetValue<string>(singleKeyName);
+
+        //    // Assert
+        //    result.Should().BeEquivalentTo(stringDefault);
+        //}
+
+        [Test]
         public void GetSection_ForString_ReturnsString()
         {
             // Arrange
@@ -18,18 +61,21 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var genericSingleKeyOption = new GenericSingleKeyOption<string>(singleKeyName);
             var expected = "mystring";
             string stringDefault = string.Empty;
+            var secondExpected = "NewString";
+            ;
 
             string settingsFileName = "objectsinglekeytypes.json";
             IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
 
             // Act
-            //var result = genericSingleKeyOption.GetSection<string>(config, stringDefault).Get<GenericSingleKeyOption<string>>();
-            //var result = genericSingleKeyOption.GetSection(config, stringDefault).Get<GenericSingleKeyOption<string>>();
             var result = genericSingleKeyOption.GetSection(config, stringDefault);
 
             // Assert
             result.Value.Should().BeEquivalentTo(expected);
             result.Key.Should().BeEquivalentTo(singleKeyName);
+
+            result.Value = secondExpected;
+            result.Value.Should().Be(secondExpected);
         }
 
         [Test]
@@ -40,6 +86,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var genericSingleKeyOption = new GenericSingleKeyOption<int>(singleKeyName);
             var expected = Int32.MinValue;
             var defaultValue = 0;
+            var secondExpected = Int32.MaxValue;
 
             string settingsFileName = "objectsinglekeytypes.json";
             IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
@@ -50,6 +97,9 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             // Assert
             Convert.ToInt32(result.Value).Should().Be(expected);
             result.Key.Should().BeEquivalentTo(singleKeyName);
+
+            result.Value = secondExpected.ToString();
+            Convert.ToInt32(result.Value).Should().Be(secondExpected);
         }
         
         [Test]
@@ -60,6 +110,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var genericSingleKeyOption = new GenericSingleKeyOption<Int16>(singleKeyName);
             var expected = Int16.MinValue;
             Int16 defaultValue = 0;
+            var secondExpected = Int16.MaxValue;
 
             string settingsFileName = "objectsinglekeytypes.json";
             IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
@@ -70,6 +121,9 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             // Assert
             Convert.ToInt32(result.Value).Should().Be(expected);
             result.Key.Should().BeEquivalentTo(singleKeyName);
+
+            result.Value = secondExpected.ToString();
+            Convert.ToInt16(result.Value).Should().Be(secondExpected);
         }
         
         [Test]
@@ -111,5 +165,13 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             Convert.ToBoolean(result.Value).Should().BeFalse();
             result.Key.Should().BeEquivalentTo(singleKeyName);
         }
+
+
+        [Test]
+        public void Value_IsSet_StateAfterTest()
+        {
+
+        }
+
     }
 }
