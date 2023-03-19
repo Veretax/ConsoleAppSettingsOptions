@@ -1,4 +1,5 @@
 ﻿using ConsoleAppSettings.OptionsLibrary.Configuration;
+using ConsoleAppSettingsOptions.Library.Configuration;
 using ConsoleAppSettingsOptions.Library.Options;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
@@ -12,11 +13,13 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         public void GetSection_LoggingOptions_ReturnsDefaultBehavior()
         {
             // Arrange
-            var expectedAspNetCore = "Warning";
-            var expectedDefault = "Information";
+            var fileName = "loggingloglevelonly.json";
+            var expectedAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
+            var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
 
             var options = new LoggingOptions();
-            var config = ConsoleOptionsJsonConfig.LoadJsonConfig("appsettings.json");
+            
+            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
 
             // Act
             var actual = options.GetSection(config).Get<LoggingOptions>();
@@ -25,16 +28,20 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             actual.Should().BeOfType<LoggingOptions>();
             actual.LogLevel.Should().BeOfType<LogLevelOptions>();
             
-            actual.LogLevel.MicrosoftAspNetCore.Should().Be(expectedAspNetCore);
-            actual.LogLevel.Default.Should().Be(expectedDefault);
+            actual.LogLevel.MicrosoftAspNetCore.Should().Be(DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel);
+            actual.LogLevel.Default.Should().Be(DefaultApplicationOptions.DefaultLoggingLevel);
         }
         
         [Test]
         public void LogLevelAspNetCore_WhenSetToValue_ReturnsThatValue()
         {
             // Arrange
+            var fileName = "loggingloglevelonly.json";
+            var expectedAspNetCore = "Trace";
+            var expectedDefault = "Fatal";
+
             LoggingOptions options = new LoggingOptions();
-            var config = ConsoleOptionsJsonConfig.LoadJsonConfig("appsettings.json");
+            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
             var actual = options.GetSection(config).Get<LoggingOptions>();
 
             string expected = "NewAspNetCoreOption";
@@ -50,8 +57,12 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         public void LogLevelDefault_WhenSetToValue_ReturnsThatValue()
         {
             // Arrange
+            var fileName = "loggingloglevelonly.json";
+            var expectedAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
+            var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
+
             LoggingOptions options = new LoggingOptions();
-            var config = ConsoleOptionsJsonConfig.LoadJsonConfig("appsettings.json");
+            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
             var actual = options.GetSection(config).Get<LoggingOptions>();
             string expected = "NewDefaultCoreOption";
             // Act

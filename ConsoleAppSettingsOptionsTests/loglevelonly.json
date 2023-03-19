@@ -1,8 +1,6 @@
 {
-  "Logging": {
-    "LogLevel": {
-      "Default": "Fatal",
-      "Microsoft.AspNetCore": "Trace"
-    }
+  "LogLevel": {
+    "Default": "Off",
+    "Microsoft.AspNetCore": "Error"
   }
 }

@@ -1,4 +1,5 @@
 ﻿using ConsoleAppSettings.OptionsLibrary.Configuration;
+using ConsoleAppSettingsOptions.Library.Configuration;
 using ConsoleAppSettingsOptions.Library.Options;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +14,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         {
             // Arrange
             var logLevel = new LogLevelOptions();
-            var expected = "Information";
+            var expected = DefaultApplicationOptions.DefaultLoggingLevel;
             // Act
             var result = logLevel.Default;
 
@@ -26,7 +27,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         {
             // Arrange
             var logLevel = new LogLevelOptions();
-            var expected = "Warning";
+            var expected = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
             // Act
             var result = logLevel.MicrosoftAspNetCore;
 
@@ -42,8 +43,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var fileName = "loglevelonly.json";
             var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
             LogLevelOptions options = new LogLevelOptions();
-            var expectedAspNetCore = "Warning";
-            var expectedDefault = "Information";
+            var expectedAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
+            var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
 
             // Act
             var actual = options.GetSection(config).Get<LogLevelOptions>();
@@ -61,8 +62,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var fileName = "twonestedvalueonly.json";
             var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
             LogLevelOptions options = new LogLevelOptions();
-            var expectedAspNetCore = "Warning";
-            var expectedDefault = "Information";
+            var expectedAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
+            var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
             
             // Act
             var actual = options.GetSection(config).Get<LogLevelOptions>();

@@ -28,6 +28,9 @@
     <None Update="allowhostsonly.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="loggingloglevelonly.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="loglevelonly.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

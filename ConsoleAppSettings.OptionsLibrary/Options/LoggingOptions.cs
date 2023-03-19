@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using ConsoleAppSettingsOptions.Library.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace ConsoleAppSettingsOptions.Library.Options;
 
@@ -9,8 +10,26 @@ public sealed class LoggingOptions
     
     public IConfiguration GetSection(IConfiguration config)
     {
-        config = config.GetSection(LoggingOptions.LoggingName);
-        LogLevel = LogLevel?.GetSection(config).Get<LogLevelOptions>();
+        LoggingOptions options = new();
+
+        var section = config.GetSection(LoggingOptions.LoggingName);
+        if (section.Exists())
+        {
+            section.Bind(this);
+        }
+        else
+        {
+            
+            options.LogLevel = new LogLevelOptions()
+            {
+                Default = DefaultApplicationOptions.DefaultLoggingLevel,
+                MicrosoftAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel
+            };
+
+            this.LogLevel = options.LogLevel;
+            section.Bind(options);
+        }
+        
         return config;
     }
 }
