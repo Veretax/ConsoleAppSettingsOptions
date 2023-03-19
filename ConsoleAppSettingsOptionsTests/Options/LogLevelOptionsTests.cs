@@ -39,7 +39,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         public void GetSection_ReturnsConfigurationBound()
         {
             // Arrange
-            var config = ConsoleOptionsJsonConfig.LoadJsonConfig("appsettings.json");
+            var fileName = "loglevelonly.json";
+            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
             LogLevelOptions options = new LogLevelOptions();
             var expectedAspNetCore = "Warning";
             var expectedDefault = "Information";
@@ -51,7 +52,28 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             actual.Default.Should().Be(expectedDefault);
             actual.MicrosoftAspNetCore.Should().Be(expectedAspNetCore);
         }
-        
+
+
+        [Test]
+        public void GetSection_WhenLogLevelIsNotPresent_ReturnsDefaults()
+        {
+            // Arrange
+            var fileName = "twonestedvalueonly.json";
+            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
+            LogLevelOptions options = new LogLevelOptions();
+            var expectedAspNetCore = "Warning";
+            var expectedDefault = "Information";
+            
+            // Act
+            var actual = options.GetSection(config).Get<LogLevelOptions>();
+
+            // Assert
+            actual.Default.Should().Be(expectedDefault);
+            actual.MicrosoftAspNetCore.Should().Be(expectedAspNetCore);
+
+        }
+
+
         [Test]
         public void DefaultLogLevel_WhenSet_ReturnsTheSameValue()
         {
