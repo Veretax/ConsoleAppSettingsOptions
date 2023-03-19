@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using Microsoft.Extensions.Configuration;
 using ConsoleAppSettings.OptionsLibrary.Configuration;
+using ConsoleAppSettingsOptions.Library.Tests.Helpers;
 using FluentAssertions;
 
 namespace ConsoleAppSettingsOptions.Library.Tests.Options
@@ -21,8 +22,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var secondExpected = "NewString";
             ;
 
-            string settingsFileName = "twonestedvalueonly.json";
-            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
+            string fileName = "twonestedvalueonly.json";
+            IConfiguration config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var result = genericSingleKeyOption.GetSection(config, stringDefault);
@@ -31,27 +32,6 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             result.Value.Should().BeEquivalentTo(stringDefault);
             result.Key.Should().BeEquivalentTo(singleKeyName);
         }
-
-        //[Test]
-        //public void GetSection_SectionNotPresentThenGetValue_ReturnsDefaultValue()
-        //{
-        //    // Arrange
-        //    var singleKeyName = "String";
-        //    var genericSingleKeyOption = new GenericSingleKeyOption<string>(singleKeyName);
-        //    var expected = "mystring";
-        //    string stringDefault = string.Empty;
-        //    var secondExpected = "NewString";
-        //    ;
-
-        //    string settingsFileName = "twonestedvalueonly.json";
-        //    IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
-
-        //    // Act
-        //    var result = genericSingleKeyOption.GetSection(config, stringDefault).GetValue<string>(singleKeyName);
-
-        //    // Assert
-        //    result.Should().BeEquivalentTo(stringDefault);
-        //}
 
         [Test]
         public void GetSection_ForString_ReturnsString()
@@ -64,8 +44,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var secondExpected = "NewString";
             ;
 
-            string settingsFileName = "objectsinglekeytypes.json";
-            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
+            string fileName = "objectsinglekeytypes.json";
+            IConfiguration config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var result = genericSingleKeyOption.GetSection(config, stringDefault);
@@ -88,8 +68,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var defaultValue = 0;
             var secondExpected = Int32.MaxValue;
 
-            string settingsFileName = "objectsinglekeytypes.json";
-            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
+            string fileName = "objectsinglekeytypes.json";
+            IConfiguration config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var result = genericSingleKeyOption.GetSection(config, defaultValue);
@@ -112,8 +92,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             Int16 defaultValue = 0;
             var secondExpected = Int16.MaxValue;
 
-            string settingsFileName = "objectsinglekeytypes.json";
-            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
+            string fileName = "objectsinglekeytypes.json";
+            IConfiguration config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var result = genericSingleKeyOption.GetSection(config, defaultValue);
@@ -135,8 +115,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var expected = true;
             Boolean defaultValue = false;
 
-            string settingsFileName = "objectsinglekeytypes.json";
-            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
+            string fileName = "objectsinglekeytypes.json";
+            IConfiguration config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var result = genericSingleKeyOption.GetSection(config, defaultValue);
@@ -155,8 +135,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var expected = false;
             Boolean defaultValue = true;
 
-            string settingsFileName = "objectsinglekeytypes.json";
-            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig(settingsFileName);
+            string fileName = "objectsinglekeytypes.json";
+            IConfiguration config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var result = genericSingleKeyOption.GetSection(config, defaultValue);
@@ -165,13 +145,5 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             Convert.ToBoolean(result.Value).Should().BeFalse();
             result.Key.Should().BeEquivalentTo(singleKeyName);
         }
-
-
-        [Test]
-        public void Value_IsSet_StateAfterTest()
-        {
-
-        }
-
     }
 }

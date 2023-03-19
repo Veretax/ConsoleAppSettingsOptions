@@ -1,6 +1,7 @@
 ﻿using ConsoleAppSettings.OptionsLibrary.Configuration;
 using ConsoleAppSettingsOptions.Library.Configuration;
 using ConsoleAppSettingsOptions.Library.Options;
+using ConsoleAppSettingsOptions.Library.Tests.Helpers;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 
@@ -19,7 +20,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
 
             var options = new LoggingOptions();
             
-            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
+            var config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var actual = options.GetSection(config).Get<LoggingOptions>();
@@ -41,7 +42,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var expectedDefault = "Fatal";
 
             LoggingOptions options = new LoggingOptions();
-            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
+            var config = JsonConfigHelper.LoadJsonConfig(fileName);
             var actual = options.GetSection(config).Get<LoggingOptions>();
 
             string expected = "NewAspNetCoreOption";
@@ -62,7 +63,7 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
 
             LoggingOptions options = new LoggingOptions();
-            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
+            var config = JsonConfigHelper.LoadJsonConfig(fileName);
             var actual = options.GetSection(config).Get<LoggingOptions>();
             string expected = "NewDefaultCoreOption";
             // Act

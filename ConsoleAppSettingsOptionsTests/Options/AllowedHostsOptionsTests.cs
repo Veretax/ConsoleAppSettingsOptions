@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using ConsoleAppSettings.OptionsLibrary.Configuration;
 using ConsoleAppSettingsOptions.Library.Configuration;
+using ConsoleAppSettingsOptions.Library.Tests.Helpers;
 using Microsoft.Extensions.Configuration;
 using FluentAssertions;
 
@@ -15,9 +16,10 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         public void GetSection_WithValidAllowHostsKey_ReturnsKeyValue()
         {
             // Arrange
+            var fileName = "allowhostsonly.json";
             string expected = "localhost";
             var allowedHostsOptions = new AllowedHostsOptions();
-            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig("allowhostsonly.json");
+            IConfiguration config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var result = allowedHostsOptions.GetSection(config).Get<AllowedHostsOptions>();
@@ -25,14 +27,15 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             // Assert
             result.AllowedHosts.Should().BeEquivalentTo(expected);
         }
-        
+
         [Test]
         public void GetSection_WithNoValidAllowHostsKey_ExpectedBehavior()
         {
             // Arrange
             string expected = DefaultApplicationOptions.DefaultAllowHosts;
             var allowedHostsOptions = new AllowedHostsOptions();
-            IConfiguration config = ConsoleOptionsJsonConfig.LoadJsonConfig("onekeyjsonfile.json");
+            var fileName = "onekeyjsonfile.json";
+            IConfiguration config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var result = allowedHostsOptions.GetSection(config).Get<AllowedHostsOptions>();

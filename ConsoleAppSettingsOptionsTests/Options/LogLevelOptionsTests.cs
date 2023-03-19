@@ -1,6 +1,7 @@
 ﻿using ConsoleAppSettings.OptionsLibrary.Configuration;
 using ConsoleAppSettingsOptions.Library.Configuration;
 using ConsoleAppSettingsOptions.Library.Options;
+using ConsoleAppSettingsOptions.Library.Tests.Helpers;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 
@@ -40,11 +41,12 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         public void GetSection_ReturnsConfigurationBound()
         {
             // Arrange
-            var fileName = "loglevelonly.json";
-            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
             LogLevelOptions options = new LogLevelOptions();
             var expectedAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
             var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
+
+            var fileName = "loglevelonly.json";
+            var config = JsonConfigHelper.LoadJsonConfig(fileName);
 
             // Act
             var actual = options.GetSection(config).Get<LogLevelOptions>();
@@ -59,12 +61,13 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         public void GetSection_WhenLogLevelIsNotPresent_ReturnsDefaults()
         {
             // Arrange
-            var fileName = "twonestedvalueonly.json";
-            var config = ConsoleOptionsJsonConfig.LoadJsonConfig(fileName);
             LogLevelOptions options = new LogLevelOptions();
             var expectedAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
             var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
             
+            var fileName = "twonestedvalueonly.json";
+            var config = JsonConfigHelper.LoadJsonConfig(fileName);
+
             // Act
             var actual = options.GetSection(config).Get<LogLevelOptions>();
 
