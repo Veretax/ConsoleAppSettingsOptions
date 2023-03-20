@@ -1,10 +1,11 @@
 ﻿using System.Collections.Specialized;
+using ConsoleAppSettings.OptionsLibrary.Configuration;
 using ConsoleAppSettingsOptions.Library.Configuration;
 using Microsoft.Extensions.Configuration;
 
 namespace ConsoleAppSettingsOptions.Library.Options;
 
-public sealed class LogLevelOptions
+public sealed class LogLevelOptions : AbstractConfigurationOptions, IConfigurationOptions<LogLevelOptions>
 {
     public const string LogLevelName = "LogLevel";
     private string _default = DefaultApplicationOptions.DefaultLoggingLevel;
@@ -18,23 +19,33 @@ public sealed class LogLevelOptions
         set => _microsoftAspNetCore = value;
     }
 
-    public IConfiguration GetSection(IConfiguration config)
+    public LogLevelOptions BindOptions(LogLevelOptions options)
     {
-        LogLevelOptions options = new();
-        var section = config.GetSection(LogLevelOptions.LogLevelName);
+        if (Configuration == null)
+        {
+            return options;
+        }
 
+        IConfigurationSection section = Configuration.GetSection(LogLevelName);
         if (section.Exists())
         {
-            section.Bind(this);
+            section.GetChildren();
+            this.Default = section["Default"]?.ToString() ?? DefaultApplicationOptions.DefaultLoggingLevel;
+            options.Default = section["Default"]?.ToString() ?? DefaultApplicationOptions.DefaultLoggingLevel;
+
+            this.MicrosoftAspNetCore = section["Microsoft.AspNetCore"]?.ToString() ?? DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
+            options.MicrosoftAspNetCore = section["Microsoft.AspNetCore"]?.ToString() ?? DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel; 
+            section.Bind(options);
         }
         else
         {
-            options.Default = DefaultApplicationOptions.DefaultLoggingLevel;
-            options.MicrosoftAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
             this.Default = DefaultApplicationOptions.DefaultLoggingLevel;
+            options.Default = this.Default;
             this.MicrosoftAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
+            options.MicrosoftAspNetCore = this.MicrosoftAspNetCore;
             section.Bind(options);
         }
-        return config;
+
+        return options;
     }
 }

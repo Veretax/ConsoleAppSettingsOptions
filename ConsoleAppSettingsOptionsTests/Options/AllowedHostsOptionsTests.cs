@@ -18,12 +18,11 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             // Arrange
             var fileName = "allowhostsonly.json";
             string expected = "localhost";
-            var allowedHostsOptions = new AllowedHostsOptions();
-            //IConfiguration config = JsonConfigHelper.LoadJsonConfig(fileName);
-            allowedHostsOptions.OpenConfig(fileName);
+            var options = new AllowedHostsOptions();
+            options.OpenConfig(fileName);
 
             // Act
-            var result = allowedHostsOptions.GetSection().Get<AllowedHostsOptions>();
+            var result = options.BindOptions(options);
 
             // Assert
             result.AllowedHosts.Should().BeEquivalentTo(expected);
@@ -34,12 +33,12 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         {
             // Arrange
             string expected = DefaultApplicationOptions.DefaultAllowHosts;
-            var allowedHostsOptions = new AllowedHostsOptions();
+            var options = new AllowedHostsOptions();
             var fileName = "onekeyjsonfile.json";
-            allowedHostsOptions.OpenConfig(fileName);
+            options.OpenConfig(fileName);
 
             // Act
-            var result = allowedHostsOptions.GetSection().Get<AllowedHostsOptions>();
+            var result = options.BindOptions(options);
 
             // Assert
             result.AllowedHosts.Should().BeEquivalentTo(expected);

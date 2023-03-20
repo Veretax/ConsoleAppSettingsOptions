@@ -73,4 +73,17 @@ public class ConsoleOptionsJsonConfig
         }
     }
 
+    /// <summary>
+    /// Calculates the full file path, and calls LoadJsonConfig before returning the Configuration
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public static IConfiguration? OpenJsonConfigFile(string fileName)
+    {
+        string filePath = Path.GetFullPath(fileName);
+        var config = ConsoleOptionsJsonConfig.LoadJsonConfig(filePath);
+
+        return config;
+    }
+
 }

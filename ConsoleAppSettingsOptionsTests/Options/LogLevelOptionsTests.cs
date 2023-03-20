@@ -42,14 +42,14 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         {
             // Arrange
             LogLevelOptions options = new LogLevelOptions();
-            var expectedAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
-            var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
+            var expectedAspNetCore = "Error";
+            var expectedDefault = "Off";
 
             var fileName = "loglevelonly.json";
-            var config = JsonConfigHelper.LoadJsonConfig(fileName);
+            var config = options.OpenConfig(fileName);
 
             // Act
-            var actual = options.GetSection(config).Get<LogLevelOptions>();
+            var actual = options.BindOptions(options);
 
             // Assert
             actual.Default.Should().Be(expectedDefault);
@@ -66,10 +66,10 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
             
             var fileName = "twonestedvalueonly.json";
-            var config = JsonConfigHelper.LoadJsonConfig(fileName);
+            var config = options.OpenConfig(fileName);
 
             // Act
-            var actual = options.GetSection(config).Get<LogLevelOptions>();
+            var actual = options.BindOptions(options);
 
             // Assert
             actual.Default.Should().Be(expectedDefault);

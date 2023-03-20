@@ -33,7 +33,7 @@ public class GenericSingleKeyOption<T>
         {
             options.Value = defaultValue;
             this.Value = defaultValue;
-            section.Value = defaultValue.ToString();
+            section.Value = defaultValue?.ToString();
             section.Bind(this.Key,this.Value);
         }
         return section;

@@ -16,13 +16,14 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             // Arrange
             TwoNestedValueOptions options = new TwoNestedValueOptions();
             var expectedStringKey1 = "StringValue1";
-            var expectedIntKey2 = 532;
+            var expectedIntKey2 = 535;
 
             var fileName = "twonestedvalueonly.json";
-            var config = JsonConfigHelper.LoadJsonConfig(fileName); 
+            var config = options.OpenConfig(fileName); 
 
             // Act
-            var result = options.GetSection(config).Get<TwoNestedValueOptions>();
+            var result = options.BindOptions(options);
+
 
             // Assert
             result.StringKey1.Should().Be(expectedStringKey1);
