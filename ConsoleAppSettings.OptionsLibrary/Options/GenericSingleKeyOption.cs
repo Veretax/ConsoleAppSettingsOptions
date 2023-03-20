@@ -38,28 +38,5 @@ public class GenericSingleKeyOption<T>
         }
         return section;
     }
-
-    /// <summary>
-    /// Gets the Configuration Section for the AllowedHostsName
-    /// </summary>
-    /// <param name="config">The configuration option</param>
-    /// <param name="defaultValue">The default object to use in the event the section does not exist</param>
-    /// <returns>the configuration after processing the section</returns>
-    //public IConfiguration GetSection<T>(IConfiguration config, object defaultValue) where T : class
-    //{
-    //    GenericSingleKeyOption<T> options;
-    //    options = new GenericSingleKeyOption<T>(this.OptionName);
-
-    //    IConfigurationSection section = config.GetSection(OptionName);
-    //    if (section.Exists())
-    //    {
-    //        section.Bind(options);
-    //    }
-    //    else
-    //    {
-    //        OptionValue = defaultValue;
-    //    }
-    //    return config;
-
-    //}
+    
 }
