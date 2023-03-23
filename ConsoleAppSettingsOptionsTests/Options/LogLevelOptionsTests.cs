@@ -1,4 +1,5 @@
-﻿using ConsoleAppSettings.OptionsLibrary.Configuration;
+﻿using System.Diagnostics.CodeAnalysis;
+using ConsoleAppSettings.OptionsLibrary.Configuration;
 using ConsoleAppSettingsOptions.Library.Configuration;
 using ConsoleAppSettingsOptions.Library.Options;
 using ConsoleAppSettingsOptions.Library.Tests.Helpers;
@@ -10,6 +11,57 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
     [TestFixture]
     public class LogLevelOptionsTests
     {
+
+        [Test]
+        public void LogLevelName_ConstantMatches()
+        {
+            var expected = "LogLevel";
+            LogLevelOptions.LogLevelName.Should().Be(expected);
+        }
+
+        [Test]
+        public void BindOptions_WhenConfigurationIsNull_Parameter()
+        {
+            // Arrange
+            LogLevelOptions options = new LogLevelOptions();
+            LogLevelOptions expected = new();
+            expected.MicrosoftAspNetCore = "Error";
+            expected.Default = "Off";
+            
+
+            var fileName = "loglevelonly.json";
+            var config = options.OpenConfig(fileName);
+            options.Configuration = null;
+
+            // Act
+            var actual = options.BindOptions(expected);
+
+            // Assert
+            actual.Default.Should().Be(expected.Default);
+            actual.MicrosoftAspNetCore.Should().Be(expected.MicrosoftAspNetCore);
+        }
+
+        [Test]
+        public void BindOptions_WhenConfigurationIsNull_ReturnsDefaultValues()
+        {
+            // Arrange
+            LogLevelOptions options = new LogLevelOptions();
+            LogLevelOptions expected = new();
+            expected.MicrosoftAspNetCore = "Error";
+            expected.Default = "Off";
+            options.Configuration = null;
+
+            var fileName = "loglevelonly.json";
+            var config = options.OpenConfig(fileName);
+
+            // Act
+            var actual = options.BindOptions(options);
+
+            // Assert
+            actual.Default.Should().Be(expected.Default);
+            actual.MicrosoftAspNetCore.Should().Be(expected.MicrosoftAspNetCore);
+        }
+
         [Test]
         public void DefaultLogLevel_ReturnsInformationLogLevel()
         {
@@ -107,6 +159,14 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             options.MicrosoftAspNetCore.Should().Be(expected);
 
         }
+
+
+        [Test]
+        public void BindOptions_StateBeforeTest_StateAfterTest()
+        {
+
+        }
+
 
     }
 }

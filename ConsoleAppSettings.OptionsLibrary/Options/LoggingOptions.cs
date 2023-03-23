@@ -3,35 +3,36 @@ using Microsoft.Extensions.Configuration;
 
 namespace ConsoleAppSettingsOptions.Library.Options;
 
+// TODO migrate GetSection to BindOptions Style
 public sealed class LoggingOptions : AbstractConfigurationOptions, IConfigurationOptions<LoggingOptions>
 {
     public const string LoggingName = "Logging";
     public LogLevelOptions? LogLevel { get; set; } = new LogLevelOptions();
     
-    public IConfiguration GetSection(IConfiguration config)
-    {
-        LoggingOptions options = new();
+    //public IConfiguration GetSection(IConfiguration config)
+    //{
+    //    LoggingOptions options = new();
 
-        var section = config.GetSection(LoggingOptions.LoggingName);
-        if (section.Exists())
-        {
-            section.Bind(this);
-        }
-        else
-        {
+    //    var section = config.GetSection(LoggingOptions.LoggingName);
+    //    if (section.Exists())
+    //    {
+    //        section.Bind(this);
+    //    }
+    //    else
+    //    {
             
-            options.LogLevel = new LogLevelOptions()
-            {
-                Default = DefaultApplicationOptions.DefaultLoggingLevel,
-                MicrosoftAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel
-            };
+    //        options.LogLevel = new LogLevelOptions()
+    //        {
+    //            Default = DefaultApplicationOptions.DefaultLoggingLevel,
+    //            MicrosoftAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel
+    //        };
 
-            this.LogLevel = options.LogLevel;
-            section.Bind(options);
-        }
+    //        this.LogLevel = options.LogLevel;
+    //        section.Bind(options);
+    //    }
         
-        return config;
-    }
+    //    return config;
+    //}
 
 
     public LoggingOptions BindOptions(LoggingOptions options)

@@ -11,70 +11,90 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
     public class LoggingOptionsTests
     {
         [Test]
-        public void GetSection_LoggingOptions_ReturnsDefaultBehavior()
+        public void LoggingName_ConstantMatches()
         {
-            // Arrange
-            var fileName = "loggingloglevelonly.json";
-            var expectedAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
-            var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
-
-            var options = new LoggingOptions();
-            
-            var config = JsonConfigHelper.LoadJsonConfig(fileName);
-
-            // Act
-            var actual = options.GetSection(config).Get<LoggingOptions>();
-
-            // Assert
-            actual.Should().BeOfType<LoggingOptions>();
-            actual.LogLevel.Should().BeOfType<LogLevelOptions>();
-            
-            actual.LogLevel.MicrosoftAspNetCore.Should().Be(DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel);
-            actual.LogLevel.Default.Should().Be(DefaultApplicationOptions.DefaultLoggingLevel);
-        }
-        
-        [Test]
-        public void LogLevelAspNetCore_WhenSetToValue_ReturnsThatValue()
-        {
-            // Arrange
-            var fileName = "loggingloglevelonly.json";
-            var expectedAspNetCore = "Trace";
-            var expectedDefault = "Fatal";
-
-            LoggingOptions options = new LoggingOptions();
-            var config = JsonConfigHelper.LoadJsonConfig(fileName);
-            var actual = options.GetSection(config).Get<LoggingOptions>();
-
-            string expected = "NewAspNetCoreOption";
-            // Act
-            options.LogLevel.MicrosoftAspNetCore = expected;
-
-            // Assert
-            options.LogLevel.MicrosoftAspNetCore.Should().Be(expected);
-
+            var expected = "Logging";
+            LoggingOptions.LoggingName.Should().Be(expected);
         }
 
         [Test]
-        public void LogLevelDefault_WhenSetToValue_ReturnsThatValue()
+        public void BindOptions_WhenConfigurationIsNull_Parameter()
         {
             // Arrange
-            var fileName = "loggingloglevelonly.json";
-            var expectedAspNetCore = DefaultApplicationOptions.DefaultMicrosoftAspNetCoreLoggingLevel;
-            var expectedDefault = DefaultApplicationOptions.DefaultLoggingLevel;
-
             LoggingOptions options = new LoggingOptions();
-            var config = JsonConfigHelper.LoadJsonConfig(fileName);
-            var actual = options.GetSection(config).Get<LoggingOptions>();
-            string expected = "NewDefaultCoreOption";
+            LoggingOptions expected = new();
+            LogLevelOptions expectedLogLevel = new LogLevelOptions()
+            {
+                Default = "Debugging",
+                MicrosoftAspNetCore = "Trace"
+            };
+            
+            expected.LogLevel = expectedLogLevel;
+
+
+            var fileName = "loggingloglevelonly.json";
+            var config = options.OpenConfig(fileName);
+            options.Configuration = null;
+
             // Act
-            options.LogLevel.Default = expected;
+            var actual = options.BindOptions(expected);
 
             // Assert
-            options.LogLevel.Default.Should().Be(expected);
-
+            actual.LogLevel.Default.Should().Be(expected.LogLevel.Default);
+            actual.LogLevel.MicrosoftAspNetCore.Should().Be(expected.LogLevel.MicrosoftAspNetCore);
         }
 
+        [Test]
+        public void BindOptions_WhenJsonParamsAreMissing_ReturnEmpty()
+        {
+            // Arrange
+            LoggingOptions options = new LoggingOptions();
+            LoggingOptions expected = new();
+            LogLevelOptions expectedLogLevel = new LogLevelOptions()
+            {
+                Default = "Debugging",
+                MicrosoftAspNetCore = "Trace"
+            };
 
+            expected.LogLevel = expectedLogLevel;
+
+
+            var fileName = "allowhostsonly.json";
+            var config = options.OpenConfig(fileName);
+
+            // Act
+            var actual = options.BindOptions(expected);
+
+            // Assert
+            actual.LogLevel.Default.Should().Be(expected.LogLevel.Default);
+            actual.LogLevel.MicrosoftAspNetCore.Should().Be(expected.LogLevel.MicrosoftAspNetCore);
+        }
+
+        [Test]
+        public void BindOptions_WithValidJson_ReturnsValues()
+        {
+            // Arrange
+            LoggingOptions options = new LoggingOptions();
+            LoggingOptions expected = new();
+            LogLevelOptions expectedLogLevel = new LogLevelOptions()
+            {
+                Default = "Fatal",
+                MicrosoftAspNetCore = "Trace"
+            };
+
+            expected.LogLevel = expectedLogLevel;
+
+
+            var fileName = "loggingloglevelonly.json";
+            var config = options.OpenConfig(fileName);
+
+            // Act
+            var actual = options.BindOptions(expected);
+
+            // Assert
+            actual.LogLevel.Default.Should().Be(expected.LogLevel.Default);
+            actual.LogLevel.MicrosoftAspNetCore.Should().Be(expected.LogLevel.MicrosoftAspNetCore);
+        }
 
         [Test]
         public void LogLevel_WhenSetToValue_ReturnsThatValue()
