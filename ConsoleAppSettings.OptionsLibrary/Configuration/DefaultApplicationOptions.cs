@@ -14,6 +14,13 @@ public static class DefaultApplicationOptions
     {
         "default"
     };
+
+    private static readonly List<string> _defaultPackageOptionsArray = new List<string>()
+    {
+        "package1",
+        "package2",
+        "package3"
+    };
     public static string DefaultAgincourtApplicationName => _defaultAgincourtApplicationName;
 
     public static string DefaultApplicationVersion => _defaultApplicationVersion;
@@ -31,4 +38,6 @@ public static class DefaultApplicationOptions
     public static string DefaultOneKey => _defaultOneKey;
 
     public static List<string> DefaultSingleArray => _defaultSingleArray;
+
+    public static List<string> DefaultPackageOptionsArray => _defaultPackageOptionsArray;
 }
