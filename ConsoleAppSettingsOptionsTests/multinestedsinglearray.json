@@ -1,0 +1,18 @@
+{
+  "ShoppingList": {
+    "Packages": [
+      {
+        "Name": "All Carnations",
+        "Items": [ "red", "yellow", "blue", "orange" ]
+      },
+      {
+        "Name": "ChocolateLovers",
+        "Items": [ "Ghiardeli", "Dove", "Hershey\'s Pot of Gold", "Lindor", "Russel Stover", "Whitmans" ]
+      },
+      {
+        "Name": "Fruit",
+        "Items":  [ "apples", "peaches", "bananas", "grapes", "cantoloupe", "water melon"] 
+      }
+    ]
+  }
+}

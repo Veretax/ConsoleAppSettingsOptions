@@ -10,6 +10,10 @@ public static class DefaultApplicationOptions
     private static readonly string _defaultLoggingLevel = "Information";
     private static readonly string _defaultAllowHosts = "*";
     private static readonly string _defaultOneKey = "OneKey";
+    private static readonly List<string> _defaultSingleArray = new List<string>()
+    {
+        "default"
+    };
     public static string DefaultAgincourtApplicationName => _defaultAgincourtApplicationName;
 
     public static string DefaultApplicationVersion => _defaultApplicationVersion;
@@ -25,4 +29,6 @@ public static class DefaultApplicationOptions
     public static string DefaultAllowHosts => _defaultAllowHosts;
 
     public static string DefaultOneKey => _defaultOneKey;
+
+    public static List<string> DefaultSingleArray => _defaultSingleArray;
 }

@@ -25,6 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="multinestedsinglearray.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="singlearrayitem.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="allowhostsonly.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

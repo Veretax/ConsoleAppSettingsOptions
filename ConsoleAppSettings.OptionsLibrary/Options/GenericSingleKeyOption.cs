@@ -19,6 +19,7 @@ public class GenericSingleKeyOption<T>
     public GenericSingleKeyOption(string singleKeyName)
     {
         _key = singleKeyName;
+        
     }
 
     public IConfigurationSection GetSection(IConfiguration config, T defaultValue)
