@@ -1,4 +1,5 @@
-﻿using ConsoleAppSettingsOptions.Library.Options;
+﻿using ConsoleAppSettingsOptions.Library.Configuration;
+using ConsoleAppSettingsOptions.Library.Options;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -64,12 +65,6 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
         {
             // Arrange
             PackageOptions options = new PackageOptions();
-            List<string> expected = new List<string>()
-            {
-                "package1",
-                "package2",
-                "package3"
-            };
             
             string filename = "allowhostsonly.json";
 
@@ -79,7 +74,8 @@ namespace ConsoleAppSettingsOptions.Library.Tests.Options
             var actual = options.BindOptions(options);
 
             // Assert
-            actual.Packages.Should().BeEquivalentTo(expected);
+            
+            actual.Packages.Should().BeEquivalentTo(DefaultApplicationOptions.DefaultPackageOptionsArray);
 
         }
 

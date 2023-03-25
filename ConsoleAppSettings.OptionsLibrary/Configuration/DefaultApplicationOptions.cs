@@ -23,14 +23,7 @@ public static class DefaultApplicationOptions
         "package2",
         "package3"
     };
-
-    private static readonly string _defaultPackageName = "Package 1";
-
-    private static readonly List<string> _defaultPackageItems = new List<string>()
-    {
-        "Only One Item"
-    };
-
+    
     private static readonly string _defaultComplexPackageOptionName = "ComplexOption";
     private static readonly List<string> _defaultComplexPackageItems = new List<string>() {
         "default"
@@ -55,11 +48,7 @@ public static class DefaultApplicationOptions
     public static List<string> DefaultSingleArray => _defaultSingleArray;
 
     public static List<string> DefaultPackageOptionsArray => _defaultPackageOptionsArray;
-
-    public static string DefaultPackageName => _defaultPackageName;
-
-    public static List<string> DefaultPackageItems => _defaultPackageItems;
-
+    
     public static string DefaultComplexPackageOptionName => _defaultComplexPackageOptionName;
 
     public static List<string> DefaultComplexPackageItems => _defaultComplexPackageItems;
