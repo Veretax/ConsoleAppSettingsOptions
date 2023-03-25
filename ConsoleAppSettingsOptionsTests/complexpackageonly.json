@@ -1,0 +1,7 @@
+{
+
+  "Packages": {
+    "Name": "Dishes",
+    "Items": [ "Big Plates", "Little Plates", "Bowls", "Coffee Mugs" ]
+  }
+}
